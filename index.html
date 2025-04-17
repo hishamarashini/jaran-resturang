@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css"> 
+  <script src="myscripts.js"></script>
+  <title>JARAN-RESTURANG</title>
+
+</head>
+<body>
+  <header>
+    <img src="images/jaran_logo.png" style="width: 250px;" alt="logo">
+    <h1>JARAN BUFFE RESTURANG</h1>
+    <p>Your favorite food, made fresh!</p>
+  </header>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#booking">Book a Table</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <section class="hero">
+    <div>Experience Delight in Every Bite</div>
+  </section>
+  <section class="content" id="about">
+    <h2>About Us</h2>
+    <p>JARAN BUFFE RESTURANG is a cozy and elegant place to enjoy a curated selection of local and international dishes. Perfect for family dinners, romantic dates, or casual lunches.</p>
+  </section>
+  <section class="content" id="menu">
+    <h2>Menu Highlights</h2>
+    <ul>
+      <li>Grilled Salmon with Lemon Butter</li>
+      <li>Classic Margherita Pizza</li>
+      <li>Stuffed Chicken Breast</li>
+      <li>Chocolate Lava Cake</li>
+    </ul>
+  </section>
+  <section class="content" id="booking">
+    <h2>Book a Table</h2>
+    <form id="bookingForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="tel" id="phone" placeholder="Phone Number" required />
+      <input type="date" id="date" required />
+      <input type="time" id="time" required />
+      <select id="guests">
+        <option value="1">1 Guest</option>
+        <option value="2">2 Guests</option>
+        <option value="3">3 Guests</option>
+        <option value="4">4 Guests</option>
+        <option value="5+">5+ Guests</option>
+      </select>
+      <button type="submit">Reserve</button>
+    </form>
+    <p id="confirmation" style="margin-top:1rem; color: green;"></p>
+  </section>
+  <section class="content" id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: info@jaran-resturangen.se</p>
+    <p>Phone: (123) 123-0123</p>
+    <p>Address: Mjölby</p>
+  </section>
+  <footer>
+    &copy; 2025 Social Art Media. All rights reserved.
+  </footer>
+  <button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
+
+  <script>
+            // Scroll to top button
+            let mybutton = document.getElementById("topBtn");
+        
+        // When the user scrolls down 10px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+        
+        function scrollFunction() {
+          if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 200) {
+            mybutton.style.display = "block";
+          } else {
+            mybutton.style.display = "none";
+          }
+          topBtn.onclick = function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+          
+        };
+        
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+  </script>
+
+  <script>
+
+      // Booking form logic
+      document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        const guests = document.getElementById('guests').value;
+      
+        const bookingData = { name, email, phone, date, time, guests };
+      
+        try {
+          const response = await fetch('https://your-backend-url.com/api/book', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bookingData)
+          });
+      
+          const result = await response.json();
+      
+          if (result.success) {
+            document.getElementById('confirmation').textContent = `Thanks, ${name}! Your table is booked for ${date} at ${time}.`;
+          } else {
+            document.getElementById('confirmation').textContent = `Something went wrong. Please try again.`;
+          }
+          this.reset();
+        } catch (error) {
+          document.getElementById('confirmation').textContent = `Error: ${error.message}`;
+        }
+      });
+  </script>
+  
+</body>
+</html>

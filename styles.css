@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  :root {
+    --bg-color: #000000;
+    --second-bg-color: #60a554;
+    --text-color: #fff;
+    --main-color: #e5e4e4;
+}
+
+  body {
+    background-color: var(--main-color);
+    color: #333;
+  }
+  header {
+    background-color: var(--bg-color);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-around;
+    background: var(--second-bg-color);
+    padding: 0.5rem 0;
+  }
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .hero {
+    background: url('images/ocean-hotel-restaurang.jpg') no-repeat center center/cover;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-shadow: 2px 2px 6px #000;
+    font-size: 3rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  .content {
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+  }
+  form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  input, select, button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  button {
+    background: #d62828;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #a61c1c;
+  }
+  footer {
+    background: #003049;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+
+  #topBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 50px; /* Place the button at the bottom of the page */
+    right: 30px;
+    width: 60px;            /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: red; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+  }
+  #topBtn:hover {
+    background-color: var(--bg-color); /* Add a dark-grey background on hover */
+}
+
+  @media (max-width: 600px) {
+    .hero {
+      font-size: 1.5rem;
+      height: 40vh;
+    }
+    .content {
+      padding: 1rem;
+    }
+  }
