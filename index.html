@@ -119,7 +119,7 @@
         const bookingData = { name, email, phone, date, time, guests };
       
         try {
-          const response = await fetch('https://your-backend-url.com/api/book', {
+          const response = await fetch('http://localhost:3000/api/book', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(bookingData)

@@ -13,13 +13,13 @@ app.post('/api/book', async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'your_email@gmail.com',
+      user: 'imortal_l@hotmail.com',
       pass: 'your_app_password',
     },
   });
 
   const mailOptions = {
-    from: 'your_email@gmail.com',
+    from: 'imortal_l@hotmail.com',
     to: email,
     subject: 'Table Booking Confirmation',
     text: `Hi ${name}, your table is booked for ${date} at ${time} for ${guests} guests. Thanks!`,
