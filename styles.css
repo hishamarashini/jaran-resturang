@@ -51,6 +51,15 @@
     max-width: 800px;
     margin: auto;
   }
+
+  .menu_photos {
+    background: #60a554;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+  }
+
   form {
     background: white;
     padding: 2rem;
@@ -109,5 +118,21 @@
     }
     .content {
       padding: 1rem;
+    }
+    .menu_photos {
+        flex-direction: column;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      font-size: 1.5rem;
+      height: 40vh;
+    }
+    .content {
+      padding: 1rem;
+    }
+    .menu_photos {
+        flex-direction: column;
     }
   }
