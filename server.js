@@ -1,59 +1,32 @@
 const express = require('express');
-const cors = require('cors'); // <-- required for CORS
 const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer');
+const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
 
-// Enable CORS
-app.use(cors());
-
 // Middleware
+app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Booking route
-app.post('/api/book', async (req, res) => {
+// Handle booking POST request
+app.post('/api/book-table', (req, res) => {
   const { name, email, phone, date, time, guests } = req.body;
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'hishamrashini@gmail.com',
-      pass: 'password'
-    }
-  });
+  console.log('New Reservation:');
+  console.log(`Name: ${name}`);
+  console.log(`Email: ${email}`);
+  console.log(`Phone: ${phone}`);
+  console.log(`Date: ${date}`);
+  console.log(`Time: ${time}`);
+  console.log(`Guests: ${guests}`);
 
-  const mailOptions = {
-    from: 'your_email@gmail.com',
-    to: `${email}, hishamrashini@gmail.com`, // Sends to both user and you
-    subject: 'Booking Confirmation - DelishBite',
-    text: `Booking from ${name}\nEmail: ${email}\nPhone: ${phone}\nDate: ${date}\nTime: ${time}\nGuests: ${guests}`,
-  };
-
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log(`✅ Email sent to ${email}`);
-    res.json({ success: true });
-  } catch (error) {
-    console.error('❌ Email sending failed:', error);
-    res.status(500).json({ success: false });
-  }
+  // Send confirmation back to frontend
+  res.json({ message: 'Table reserved successfully!' });
 });
 
+// Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
-
-
-      // TODO: Add Google Calendar integration here
-
-
-app.listen(3000, () => console.log('Server running on port 3000'));
+  console.log(`Server running on http://localhost:${PORT}`);
 });
-
-
-
-
-
-
-
