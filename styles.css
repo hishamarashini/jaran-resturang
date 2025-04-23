@@ -52,6 +52,9 @@
     max-width: 800px;
     margin: auto;
   }
+  .content img {
+    max-width: 600px;
+  }
   /** menu**/
   .content1 {
     padding: 1rem;
