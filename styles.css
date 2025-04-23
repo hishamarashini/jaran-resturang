@@ -155,6 +155,9 @@
     .content {
       padding: 1rem;
     }
+    .content img {
+      max-width: 300px;
+    }
     .menu_photos {
         flex-direction: column;
     }
