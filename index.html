@@ -4,18 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles.css"> 
-  <script src="myscripts.js"></script>
+
   <title>YARAN-RESTAURANG</title>
 
 </head>
 <body>
   <header>
     <img src="images/jaran_logo.png" style="width: 250px;" alt="logo">
-    <h1>YARAN BUFFE RESTURANG</h1>
+    <h1>YARAN BUFFE RESTAURANG</h1>
     <p>Din favoritmat, fräsch!</p>
   </header>
   <nav>
-    <a href="#menu">Menu</a>
+    <a href="#menu">Meny</a>
     <a href="#about">Om oss</a>
     <a href="#booking">Boka Bord</a>
     <a href="#contact">Kontakta</a>
@@ -28,7 +28,7 @@
   <!-- ABOUT PART -->
   <section class="content" id="about">
     <h2>Om oss</h2>
-    <p>Smaka på Yaran Buffe RESTURANG – En resa för dina smaklökar!. 
+    <p>Smaka på Yaran Buffe RESTAURANG – En resa för dina smaklökar!. 
       Hos oss får du uppleva äkta afghanska rätter – kryddiga, färgstarka och fulla av tradition.
       Njut av äkta smaker – direkt från hjärtat av Afghanistan!</p>
       <img src="images/gratis_hemshorning.png">
@@ -36,7 +36,7 @@
 
   <!-- MENU PART -->
   <section class="content1" id="menu">
-    <h2 class="menu-title">Menu</h2>
+    <h2 class="menu-title">Meny</h2>
   
     <div class="menu-box">
       <img src="images/IMG-20250420-WA0003.jpg" alt="image1">
@@ -197,25 +197,30 @@
   
 
   <!-- BOOKING PART-->
-  <section class="content" id="booking">
-    <h2>Boka Bord</h2>
-    <form id="bookingForm" action="process_booking.php" method="POST">
-      <input type="text" id="name" placeholder="Ditt namn" required />
-      <input type="email" id="email" placeholder="E-post" required />
-      <input type="tel" id="phone" placeholder="Telefonnummer" required />
-      <input type="date" id="date" required />
-      <input type="time" id="time" required />
-      <select id="guests">
-        <option value="1">1 Person</option>
-        <option value="2">2 Personer</option>
-        <option value="3">3 Personer</option>
-        <option value="4">4 Personer</option>
-        <option value="5+">5+ Personer</option>
-      </select>
-      <button type="submit">Boka</button>
-    </form>
-    <p id="confirmation" style="margin-top:1rem; color: green;"></p>
-  </section>
+ <section class="content" id="booking">
+  <h2>Boka Bord</h2>
+  <form id="bookingForm" action="https://formsubmit.co/info@yaran-restaurang.se" method="POST">
+  <!-- Hidden FormSubmit controls -->
+  <input type="hidden" name="_subject" value="Ny bokning från Yaran Restaurang">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_next" value="https://yaran-restaurang.se/tack.html">
+  <input type="hidden" name="_captcha" value="false">
+    <input type="text" name="name" id="name" placeholder="Ditt namn" required>
+    <input type="email" name="email" id="email" placeholder="E-post" required>
+    <input type="tel" name="phone" id="phone" placeholder="Telefonnummer" required>
+    <input type="date" name="date" id="date" required>
+    <input type="time" name="time" id="time" required>
+    <select name="guests" id="guests">
+      <option value="1">1 Person</option>
+      <option value="2">2 Personer</option>
+      <option value="3">3 Personer</option>
+      <option value="4">4 Personer</option>
+      <option value="5+">5+ Personer</option>
+    </select>
+    <button type="submit">Boka</button>
+  </form>
+  <p id="confirmation" style="margin-top:1rem; color: green;"></p>
+</section>
 
   <!-- contact part -->
   <section class="content" id="contact">
@@ -255,32 +260,39 @@
         }
   </script>
 
-  <!-- BOOKING FORM -->
-
 <script>
-  document.getElementById("bookingForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevents page reload
-    
-    // Get form values
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const phone = document.getElementById("phone").value;
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
-    const guests = document.getElementById("guests").value;
-    
-    // Send data via email (using FormSubmit.co or your backend)
-    // OR store in a database (requires PHP/Node.js)
-    
-    // Example: Display confirmation message
-    document.getElementById("confirmation").innerHTML = `
-      Tack, ${name}! Din bokning för ${guests} personer den ${date} kl ${time} är mottagen. 
-      Vi skickar en bekräftelse till ${email}.
-    `;
-    
-    // Optional: Reset form
-    this.reset();
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  // Show loading state
+  const button = e.target.querySelector("button");
+  button.disabled = true;
+  button.textContent = "Skickar...";
+  
+  // Collect form data
+  const formData = new FormData(e.target);
+  
+  // Send to PHP script
+  fetch("process_booking.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("confirmation").textContent = data.message;
+    if (data.status === "success") {
+      e.target.reset();
+    }
+  })
+  .catch(error => {
+    document.getElementById("confirmation").textContent = "Något gick fel. Försök igen.";
+    console.error("Error:", error);
+  })
+  .finally(() => {
+    button.disabled = false;
+    button.textContent = "Boka";
   });
+});
 </script>
 
   
