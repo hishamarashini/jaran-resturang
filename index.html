@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css\styles.css"> 
+  <link rel="stylesheet" href="styles.css"> 
   <script src="myscripts.js"></script>
   <title>YARAN-RESTAURANG</title>
 
@@ -199,20 +199,20 @@
   <!-- BOOKING PART-->
   <section class="content" id="booking">
     <h2>Boka Bord</h2>
-    <form id="bookingForm">
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="tel" id="phone" placeholder="Phone Number" required />
+    <form id="bookingForm" action="process_booking.php" method="POST">
+      <input type="text" id="name" placeholder="Ditt namn" required />
+      <input type="email" id="email" placeholder="E-post" required />
+      <input type="tel" id="phone" placeholder="Telefonnummer" required />
       <input type="date" id="date" required />
       <input type="time" id="time" required />
       <select id="guests">
-        <option value="1">1 Guest</option>
-        <option value="2">2 Guests</option>
-        <option value="3">3 Guests</option>
-        <option value="4">4 Guests</option>
-        <option value="5+">5+ Guests</option>
+        <option value="1">1 Person</option>
+        <option value="2">2 Personer</option>
+        <option value="3">3 Personer</option>
+        <option value="4">4 Personer</option>
+        <option value="5+">5+ Personer</option>
       </select>
-      <button type="submit">Reserve</button>
+      <button type="submit">Boka</button>
     </form>
     <p id="confirmation" style="margin-top:1rem; color: green;"></p>
   </section>
@@ -255,39 +255,31 @@
         }
   </script>
 
+  <!-- BOOKING FORM -->
+
 <script>
-  const form = document.getElementById('bookingForm');
-  const confirmation = document.getElementById('confirmation');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const data = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
-      date: document.getElementById('date').value,
-      time: document.getElementById('time').value,
-      guests: document.getElementById('guests').value,
-    };
-
-    try {
-      const response = await fetch('http://localhost:3000/api/book-table', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-      confirmation.textContent = result.message;
-      form.reset();
-    } catch (error) {
-      console.error('Error:', error);
-      confirmation.textContent = 'Something went wrong. Please try again.';
-      confirmation.style.color = 'red';
-    }
+  document.getElementById("bookingForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevents page reload
+    
+    // Get form values
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+    const guests = document.getElementById("guests").value;
+    
+    // Send data via email (using FormSubmit.co or your backend)
+    // OR store in a database (requires PHP/Node.js)
+    
+    // Example: Display confirmation message
+    document.getElementById("confirmation").innerHTML = `
+      Tack, ${name}! Din bokning för ${guests} personer den ${date} kl ${time} är mottagen. 
+      Vi skickar en bekräftelse till ${email}.
+    `;
+    
+    // Optional: Reset form
+    this.reset();
   });
 </script>
 
