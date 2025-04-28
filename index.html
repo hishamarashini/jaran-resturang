@@ -192,8 +192,101 @@
       <p>QUZI QABELI</p>
       <h5>LAMMLÄGG, RUSSIN, MOROT, RIS</h5>
     </div>
-    
   </section>
+  <section>
+    <div class="scroller-container">
+      <div class="scroller-track" id="scroller">
+          <div class="scroller-item">
+              <img src="images/IMG-20250420-WA0003.jpg" alt="Image 1">
+          </div>
+          <div class="scroller-item">
+              <img src="images/IMG-20250420-WA0004.jpg" alt="Image 2">
+          </div>
+          <div class="scroller-item">
+              <img src="images/IMG-20250420-WA0005.jpg" alt="Image 3">
+          </div>
+          <div class="scroller-item">
+              <img src="images/IMG-20250420-WA0006.jpg" alt="Image 4">
+          </div>
+          <div class="scroller-item">
+              <img src="images/IMG-20250420-WA0007.jpg" alt="Image 5">
+          </div>
+          <div class="scroller-item">
+              <img src="images/IMG-20250420-WA0008.jpg" alt="Image 6">
+          </div>
+          <!-- Duplicates for seamless looping -->
+          <div class="scroller-item">
+              <img src="images/IMG-20250420-WA0009.jpg" alt="Image 1">
+          </div>
+          <div class="scroller-item">
+              <img src="images/IMG-20250420-WA0010.jpg" alt="Image 2">
+          </div>
+          <div class="scroller-item">
+              <img src="images/IMG-20250420-WA0011.jpg" alt="Image 3">
+          </div>
+          <div class="scroller-item">
+            <img src="images/IMG-20250420-WA0012.jpg" alt="Image 3">
+        </div>
+        <div class="scroller-item">
+          <img src="images/IMG-20250420-WA0013.jpg" alt="Image 3">
+      </div>
+      <div class="scroller-item">
+        <img src="images/IMG-20250420-WA0014.jpg" alt="Image 3">
+    </div>
+      </div>
+  </div>
+  </section>
+  <!-- script for looping images-->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const scroller = document.getElementById('scroller');
+        const items = scroller.querySelectorAll('.scroller-item');
+        const container = document.querySelector('.scroller-container');
+        
+        // Calculate widths
+        const itemWidth = items[0].offsetWidth;
+        const visibleItems = Math.ceil(container.offsetWidth / itemWidth);
+        const scrollDistance = itemWidth * visibleItems;
+        
+        // Clone items for infinite loop
+        const cloneCount = visibleItems;
+        for (let i = 0; i < cloneCount; i++) {
+            const clone = items[i].cloneNode(true);
+            scroller.appendChild(clone);
+        }
+        
+        // Animation function
+        let currentPos = 0;
+        function animate() {
+            currentPos -= 1;
+            if (currentPos <= -scrollDistance) {
+                currentPos = 0;
+                // Jump back without animation
+                scroller.style.transition = 'none';
+                scroller.style.transform = `translateX(${currentPos}px)`;
+                // Force reflow
+                void scroller.offsetWidth;
+            }
+            // Smooth scrolling
+            scroller.style.transition = 'transform 0.1s linear';
+            scroller.style.transform = `translateX(${currentPos}px)`;
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Start animation
+        animate();
+        
+        // Pause on hover
+        container.addEventListener('mouseenter', () => {
+            scroller.style.animationPlayState = 'paused';
+        });
+        
+        container.addEventListener('mouseleave', () => {
+            scroller.style.animationPlayState = 'running';
+        });
+    });
+</script>
   
 
   <!-- BOOKING PART-->
